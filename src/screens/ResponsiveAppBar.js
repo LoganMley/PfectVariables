@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Link as ReactLink } from 'react-router-dom';
+import { Link as ReactLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,14 +13,18 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { UserContext } from './UserContext';
 
-const pages = ['Home', 'About', 'Contact,', 'Lololol'];
-const pagesPath = ['/', '/about', '/contact'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Home','About','Contact'];
+const pagesPaths = ['/','/about','/contact'];
+
+const settings = ['Profile', 'Account', 'Dashboard'];
+const settingsPath = ['/profile', '/account', '/dashboard']
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { loggedIn, logoutUser } = React.useContext(UserContext)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,6 +40,7 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
 
   return (
     <AppBar position="static">
@@ -89,11 +94,20 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+            {
+            pages.map(
+              (page, i) => (
+                  <MenuItem
+                    onClick={handleCloseNavMenu}
+                    component={ReactLink}
+                    to={pagesPaths[i]}
+                    key={page}
+                  >
+                    {page}
+                  </MenuItem>
+                )
+              )
+            }
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -116,17 +130,21 @@ function ResponsiveAppBar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page, i) => (
-              <Button
-              component={ReactLink}
-              to={pagesPath[i]}
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            {
+            
+            pages.map(
+              (page, i) => (
+                  <Button
+                    component={ReactLink}
+                    to={pagesPaths[i]}
+                    key={page}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page}
+                  </Button>
+                )
+              )
+            }
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -151,11 +169,34 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {
+                settings.map(
+                  (setting, i) => (
+                    <Button
+                    component={ReactLink}
+                    to={settingsPath[i]}
+                    key={setting}
+                    sx={{ my: 2, color: 'black', display: 'block' }}
+                  >
+                    {setting}
+                  </Button>
+                  )
+                )
+              }
+
+              {
+                loggedIn ? 
+                  <MenuItem onClick={logoutUser}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem> :
+                  <MenuItem
+                  to={'/register'}
+                  component={ReactLink}
+                  onClick={handleCloseUserMenu}
+                  >
+                    <Typography textAlign="center">Register</Typography>
+                  </MenuItem>
+              }
             </Menu>
           </Box>
         </Toolbar>

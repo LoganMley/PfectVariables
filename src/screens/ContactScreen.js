@@ -9,7 +9,7 @@ function ContactScreen() {
        
     </div>
   );
-}
+} 
 
 export default ContactScreen;
 
