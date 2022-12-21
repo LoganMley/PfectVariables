@@ -15,11 +15,10 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { UserContext } from './UserContext';
 
-const pages = ['Home','About','Contact'];
-const pagesPaths = ['/','/about','/contact'];
+const pages = ['Home','About','Contact','Creators'];
+const pagesPaths = ['/','/about','/contact','creators'];
 
 const settings = ['Profile', 'Account', 'Dashboard'];
-const settingsPath = ['/profile', '/account', '/dashboard']
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -43,7 +42,7 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" style={{backgroundColor: "red", color:"black"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -56,18 +55,18 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
-              fontWeight: 700,
+              fontWeight: 900,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'black',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            DUBAI BOOKS
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
+              size="medium"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -81,7 +80,7 @@ function ResponsiveAppBar() {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
@@ -127,7 +126,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Dubai books
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {
@@ -171,15 +170,10 @@ function ResponsiveAppBar() {
             >
               {
                 settings.map(
-                  (setting, i) => (
-                    <Button
-                    component={ReactLink}
-                    to={settingsPath[i]}
-                    key={setting}
-                    sx={{ my: 2, color: 'black', display: 'block' }}
-                  >
-                    {setting}
-                  </Button>
+                  (setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
                   )
                 )
               }
