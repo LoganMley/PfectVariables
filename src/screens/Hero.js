@@ -22,9 +22,10 @@ function Hero() {
             color="text.primary"
             gutterBottom
           >
-            DUBAI BOOKS
+            <strong color="red"
+            >DUBAI BOOKS</strong>
           </Typography>
-          <Typography variant="h5" align="center" color="red" paragraph>
+          <Typography variant="h3" align="center" color="red" paragraph>
            Welcome to Dubai books. Here you will have access 
            to 1000 books of different types and genres. You can 
            buy and read them from the comfort of your home. Just be part of Dubai books
