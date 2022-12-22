@@ -1,17 +1,29 @@
 const express = require('express');
-// We only need the routing methods from Express
 const router = express.Router();
-const UserModel = require('../models/UserModel.js');
+
+
+/**
+ * ------------------------------------------------------------------------------
+ * START
+ * PassportJS Integration
+ */
+const passport = require('passport');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
-const passport = require('passport');
-
 
 // This is similar to salt in bcrypt
 const jwtSecret = process.env.JWT_SECRET
+/**
+ * ------------------------------------------------------------------------------
+ * END
+ * PassportJS Integration
+ */
 
-// No need to include '/user' here in the document part of the URL
+
+const UserModel = require('../models/UserModel.js');
+
+// http://localhost:3001/users/register
 router.post( '/register',
     function(req, res) {
 
@@ -141,7 +153,7 @@ router.post( '/register',
     }
 );
 
-// Login user
+// http://localhost:3001/users/login
 router.post('/login', 
     (req, res) => {
 
@@ -245,6 +257,8 @@ router.post('/login',
         )
     }
 )
+
+
 
 router.post('/update',
     passport.authenticate('jwt', {session: false}),
