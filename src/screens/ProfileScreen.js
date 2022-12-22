@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
+
 function ProfileScreen() {
 
     const { firstName, lastName, email, avatar, jsonwebtoken,  updateUser } = useContext(UserContext);
@@ -133,30 +134,14 @@ function ProfileScreen() {
                     </Typography>
                 </Box>
 
-                <Box mt={4}>
-                    <Avatar 
-                        sx={{ width: 128, height: 128 }} 
-                        alt="Remy Sharp" src={avatar} 
-                    />
-
-                    <Button size="small" variant="contained" component="label">
-                        Upload New Picture
-                        <input 
-                            ref={function(thisElement){ avatarField = thisElement }} 
-                            onClick={attachFile}
-                            onChange={attachFile}
-                            hidden accept="image/*" 
-                            multiple type="file" 
-                        />
-                    </Button>
-                </Box>
+                
                 
 
                 <Box mt={4}>
                     <FormControl fullWidth sx={{ mb: 2 }}>
                         <TextField 
                         inputRef={function(thisElement) { return firstNameField = thisElement; }}
-                        label="Firstname" 
+                        label="First Name" 
                         required={true}
                         defaultValue={firstName}
                         />
@@ -165,7 +150,7 @@ function ProfileScreen() {
                     <FormControl fullWidth sx={{ mb: 2 }}>
                         <TextField 
                         inputRef={function(thisElement) { return lastNameField = thisElement; }}
-                        label="Lastname" 
+                        label="Last Name" 
                         required={true}
                         defaultValue={lastName}
                         />
@@ -188,13 +173,30 @@ function ProfileScreen() {
                         />
                     </FormControl>
                 </Box>
+                <Box mt={4}>
+                    <Avatar 
+                        sx={{ width: 128, height: 128 }} 
+                        alt="Remy Sharp" src={avatar} 
+                    />
+
+                    <Button sx={{ mb: 2, mt: 2, backgroundColor: 'green' }} size="small" variant="contained" component="label">
+                        Upload Photo
+                        <input 
+                            ref={function(thisElement){ avatarField = thisElement }} 
+                            onClick={attachFile}
+                            onChange={attachFile}
+                            hidden accept="image/*" 
+                            multiple type="file" 
+                        />
+                    </Button>
+                </Box>
 
 
                 <Box display="flex">
                 
                     {
                         formState !== "loading" &&
-                        <Button onClick={update} size="large" variant="contained">Send</Button>
+                        <Button sx={{backgroundColor: 'green'}} size="large" variant="contained" onClick={update}>Send</Button>
                     }
                     
                     {

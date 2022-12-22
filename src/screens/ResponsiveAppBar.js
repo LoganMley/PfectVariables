@@ -12,19 +12,27 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import { UserContext } from './UserContext';
 
-const pages = ['Home','About','Contact'];
-const pagesPaths = ['/','/about','/contact'];
+
+
+
+
+const pages = ['Home','About','Contact', 'Products'];
+const pagesPaths = ['/','/about','/contact', '/products'];
 
 const settings = ['Profile', 'Account', 'Dashboard'];
 const settingsPath = ['/profile', '/account', '/dashboard']
 
+
+
+
+
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { loggedIn, logoutUser } = React.useContext(UserContext)
+  const { avatar, loggedIn, logoutUser } = React.useContext(UserContext)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,10 +51,10 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" style={{backgroundColor: "#33691e", color:"black"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <MenuBookOutlinedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -54,15 +62,16 @@ function ResponsiveAppBar() {
             href="/"
             sx={{
               mr: 2,
+              ml: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: '',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.2rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Dubai Books
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -110,7 +119,7 @@ function ResponsiveAppBar() {
             }
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <MenuBookOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -120,14 +129,14 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: '',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Dubai Books
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {
@@ -150,7 +159,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={avatar} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -176,27 +185,46 @@ function ResponsiveAppBar() {
                     component={ReactLink}
                     to={settingsPath[i]}
                     key={setting}
-                    sx={{ my: 2, color: 'black', display: 'block' }}
+                    sx={{ display:'block', textAlign:'center', color:'black'}}
                   >
                     {setting}
                   </Button>
                   )
                 )
               }
-
+              
               {
                 loggedIn ? 
                   <MenuItem onClick={logoutUser}>
-                    <Typography textAlign="center">Logout</Typography>
+                    <Typography display='block' textAlign="center">Logout</Typography>
                   </MenuItem> :
+               
+
                   <MenuItem
                   to={'/register'}
                   component={ReactLink}
                   onClick={handleCloseUserMenu}
                   >
-                    <Typography textAlign="center">Register</Typography>
+                    <Typography my='2' color='black' display='block'>Register</Typography>
                   </MenuItem>
+                  
+
               }
+              {
+               loggedIn ? 
+               <MenuItem onClick={logoutUser}>
+                 <Typography textAlign="center"></Typography>
+               </MenuItem> :
+                <MenuItem
+                to={'/login'}
+                component={ReactLink}
+                onClick={handleCloseUserMenu}
+                >
+                  <Typography >Login</Typography>
+                </MenuItem>
+              }
+
+              
             </Menu>
           </Box>
         </Toolbar>
