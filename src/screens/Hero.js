@@ -1,48 +1,23 @@
-
-import React from "react";
-import { Box } from "@mui/system";
-import { Container } from "@mui/system";
-import { Typography } from "@mui/material";
-import Stack from "@mui/system/Stack";
-import Button from "@mui/material/Button";
+import * as React from 'react';
 
 
-function Hero() {
+function ProductScreen(props) {
   return (
-    <Box
-    sx={{
-      bgcolor: 'background.paper',
-      pt: 8,
-      pb: 6,
-    }}
-  >
-    <Container maxWidth="sm">
-      <Typography
-        component="h1"
-        variant="h2"
-        align="center"
-        color="text.primary"
-        gutterBottom
-      >
-        Album layout
-      </Typography>
-      <Typography variant="h5" align="center" color="text.secondary" paragraph>
-        Something short and leading about the collection below—its contents,
-        the creator, etc. Make it short and sweet, but not too short so folks
-        don&apos;t simply skip over it entirely.
-      </Typography>
-      <Stack
-        sx={{ pt: 4 }}
-        direction="row"
-        spacing={2}
-        justifyContent="center"
-      >
-        <Button variant="contained">Main call to action</Button>
-        <Button variant="outlined">Secondary action</Button>
-      </Stack>
-    </Container>
-  </Box>
+    <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src={props.image} class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy"></img>
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">{props.header}</h1>
+        <p class="lead">{props.desc}</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">{props.buttonOne}</button>
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4">{props.buttonTwo}</button>
+        </div>
+      </div>
+    </div>
+  </div>
   );
 }
-
-export default Hero;
+export default ProductScreen;
